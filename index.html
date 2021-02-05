@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Canvas Token Fetcher</title>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+        <link rel="stylesheet" href="./main.css">
+    </head>
+    <body>
+        <form id="login" name="login">
+            <div>
+                <h1>Canvas Token Fetcher</h1>
+            </div>
+            <br>
+            <ul>
+                <li>
+                    <label for="username">Canvas Admin Username</label>
+                    <input type="text" name="username" required>
+                </li>
+                <li>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" autocomplete="current-password" required>
+                </li>
+                <li>
+                    <label for="domain">Domain</label>
+                    <input type="text" name="domain" list="domainList" required>
+                    <datalist id="domainList">
+                        <option value="byui">
+                        <option value="byuird">
+                        <option value="byui.beta">
+                    </datalist>
+                </li>
+                <li>
+                    <label for="purpose">Purpose</label>
+                    <input type="text" name="purpose">
+                    <span class="hint" id="purpose_hint">Optional</span>
+                </li>
+                <li>
+                    <label for="expires">Expires</label>
+                    <input type="datetime-local" name="expires">
+                    <span class="hint" id="expires_hint">Optional: Defaults to this Friday</span>
+                </li>
+                <li>
+                    <button type="submit">FETCH TOKEN</button>
+                </li>
+            </ul>    
+        </form>
+        <div id="token"></div>
+        <script>
+            const { ipcRenderer } = require('electron');
+
+            const login = document.forms['login'];
+
+            login.addEventListener('submit', event => {
+                console.log('Submitting form to IPC main...');
+                event.preventDefault();
+                let input = {};
+                input.username = login['username'].value;
+                input.password = login['password'].value;
+                input.domain = login['domain'].value;
+                input.purpose = login['purpose'].value === null ? "Fetch" : login['purpose'].value;
+                input.expires = login['expires'].value;
+                ipcRenderer.send('form-submission', input);
+            });
+
+            ipcRenderer.on('token-result', (event, token) => {
+                document.getElementById('token').innerHTML = `TOKEN: ${token}`;
+            });
+
+            // TODO: default to fridays
+            // TODO: create loading wheel
+        </script>
+    </body>
+</html>

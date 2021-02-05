@@ -1,0 +1,96 @@
+body {
+    background-color: #ffffff;
+}
+
+/*** LOGIN FORM STYLES ***/
+#login {
+    max-width: 400px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#login h1 {
+    display: block;
+    text-align: center;
+    padding: 0;
+    margin: 0px 0px 0px 0px;
+    color: #006eb6;
+    font-size: x-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#login ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;	
+}
+
+/* Input border w/ floating label */
+#login li {
+    display: block;
+    padding: 9px;
+    border: 1px solid #006eb6;
+    margin-bottom: 30px;
+    border-radius: 3px;
+}
+
+#login li:last-child {
+    border: none;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+#login label {
+    display: block;
+    float: left;
+    margin-top: -19px;
+    background: #ffffff;
+    height: 14px;
+    padding: 2px 5px 2px 5px;
+    color: #006eb6;
+    font-size: 14px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#login input {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    display: block;
+    outline: none;
+    border: none;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    padding: 0;
+}
+
+/* Span tips */
+#login li > span {
+    background: #f3f3f3;
+    display: block;
+    padding: 3px;
+    margin: 0 -9px -9px -9px;
+    text-align: center;
+    color: #006eb6;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+/* Submit button */
+#login button[type="submit"] {
+    background: #ffffff;
+    border: 2px solid #006eb6;
+    padding: 10px 20px 10px 20px;
+    border-radius: 3px;
+    color: #006eb6;
+}
+
+#login button[type="submit"]:hover {
+    background: #9bc8e5;
+}
