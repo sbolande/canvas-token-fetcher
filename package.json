@@ -7,7 +7,11 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "sbolande",
+  "author": "Seth Bolander",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sbolande/canvas-token-fetcher.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "electron": "^11.2.2"
