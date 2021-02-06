@@ -29,18 +29,12 @@ body {
 }
 
 /* Input border w/ floating label */
-#login li {
+.input-container {
     display: block;
     padding: 9px;
     border: 1px solid #006eb6;
     margin-bottom: 30px;
     border-radius: 3px;
-}
-
-#login li:last-child {
-    border: none;
-    margin-bottom: 0px;
-    text-align: center;
 }
 
 #login label {
@@ -70,8 +64,8 @@ body {
     padding: 0;
 }
 
-/* Span tips */
-#login li > span {
+/* Hints */
+.input-container > .hint {
     background: #f3f3f3;
     display: block;
     padding: 3px;
@@ -80,6 +74,7 @@ body {
     color: #006eb6;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11px;
+    border-radius: 3px;
 }
 
 /* Submit button */
@@ -99,3 +94,41 @@ body {
     cursor: not-allowed;
     pointer-events: all !important;
 }
+
+#submit-container {
+    display: block;
+    border: none;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/*** RESULTS ***/
+#results {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/*
+Loading bar
+Credited to: https://vineethtrv.github.io/loader/
+*/
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ffffff;
+    border-bottom-color: #006eb6;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+      

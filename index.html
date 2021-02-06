@@ -13,15 +13,15 @@
             </div>
             <br>
             <ul>
-                <li>
+                <li class="input-container">
                     <label for="username">Canvas Admin Username</label>
                     <input type="text" name="username" required>
                 </li>
-                <li>
+                <li class="input-container">
                     <label for="password">Password</label>
                     <input type="password" name="password" autocomplete="current-password" required>
                 </li>
-                <li>
+                <li class="input-container">
                     <label for="domain">Domain</label>
                     <input type="text" name="domain" list="domainList" required>
                     <datalist id="domainList">
@@ -30,22 +30,25 @@
                         <option value="byui.beta">
                     </datalist>
                 </li>
-                <li>
+                <li class="input-container">
                     <label for="purpose">Purpose</label>
                     <input type="text" name="purpose">
                     <span class="hint" id="purpose_hint">Optional</span>
                 </li>
-                <li>
+                <li class="input-container">
                     <label for="expires">Expires</label>
                     <input type="datetime-local" name="expires">
                     <span class="hint" id="expires_hint">Optional: Defaults to this Friday</span>
                 </li>
-                <li>
+                <li id="submit-container">
                     <button type="submit" id="submit">FETCH TOKEN</button>
+                </li>
+                <li id="results">
+                    <span id="loader"></span>
                 </li>
             </ul>    
         </form>
-        <div id="token"></div>
+        <p id="token"></p>
         <script>
             const { ipcRenderer } = require('electron');
             const login = document.forms['login'];
@@ -59,8 +62,11 @@
             login.addEventListener('submit', event => {
                 console.log('Submitting form to IPC main...');
                 event.preventDefault();
+                // turn off button
                 document.getElementById('submit').disabled = true;
-
+                // create loader
+                document.getElementById('loader').classList.add('loader');
+                
                 let input = {};
                 input.username = login['username'].value;
                 input.password = login['password'].value;
@@ -69,14 +75,13 @@
                 input.expires = login['expires'].value;
                 ipcRenderer.send('form-submission', input);
             });
-
+            
             // listener for form result
             ipcRenderer.on('token-result', (event, token) => {
+                document.getElementById('loader').classList.remove('loader');
                 document.getElementById('token').innerHTML = `TOKEN: ${token}`;
                 document.getElementById('submit').disabled = false;
             });
-
-            // TODO: create loading wheel
         </script>
     </body>
 </html>
