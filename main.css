@@ -83,7 +83,7 @@ body {
 }
 
 /* Submit button */
-#login button[type="submit"] {
+#submit {
     background: #ffffff;
     border: 2px solid #006eb6;
     padding: 10px 20px 10px 20px;
@@ -91,6 +91,11 @@ body {
     color: #006eb6;
 }
 
-#login button[type="submit"]:hover {
+#submit:hover {
     background: #9bc8e5;
+}
+
+#submit:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
 }

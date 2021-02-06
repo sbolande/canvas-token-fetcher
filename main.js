@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const runPuppeteer = require('./puppeteer/puppeteerMain');
 
 let win;
 
@@ -16,10 +17,10 @@ function createWindow() {
     
     // handle a form submission event from renderer.js
     // this will call our puppeteer logic
-    ipcMain.on('form-submission', (event, input) => {
+    ipcMain.on('form-submission', async (event, input) => {
         console.log(`Received form submission, fetching token for ${input.domain}.instructure.com`);
-        // call puppeteer here
-        event.reply('token-result', '12345');
+        var token = await runPuppeteer(input);
+        event.reply('token-result', token);
     });
     
     // open the devtools

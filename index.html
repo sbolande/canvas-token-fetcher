@@ -41,19 +41,26 @@
                     <span class="hint" id="expires_hint">Optional: Defaults to this Friday</span>
                 </li>
                 <li>
-                    <button type="submit">FETCH TOKEN</button>
+                    <button type="submit" id="submit">FETCH TOKEN</button>
                 </li>
             </ul>    
         </form>
         <div id="token"></div>
         <script>
             const { ipcRenderer } = require('electron');
-
             const login = document.forms['login'];
 
+            // default expiration to next friday
+            let friday = new Date();
+            friday.setDate(friday.getDate() + (6 + (7 - friday.getDay())) % 7);
+            login['expires'].value = friday.toISOString().slice(0, 16);
+
+            // event listener for form submission
             login.addEventListener('submit', event => {
                 console.log('Submitting form to IPC main...');
                 event.preventDefault();
+                document.getElementById('submit').disabled = true;
+
                 let input = {};
                 input.username = login['username'].value;
                 input.password = login['password'].value;
@@ -63,11 +70,12 @@
                 ipcRenderer.send('form-submission', input);
             });
 
+            // listener for form result
             ipcRenderer.on('token-result', (event, token) => {
                 document.getElementById('token').innerHTML = `TOKEN: ${token}`;
+                document.getElementById('submit').disabled = false;
             });
 
-            // TODO: default to fridays
             // TODO: create loading wheel
         </script>
     </body>
