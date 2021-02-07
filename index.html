@@ -14,15 +14,15 @@
             <br>
             <ul>
                 <li class="input-container">
-                    <label for="username">Canvas Admin Username</label>
+                    <label class="input-label" for="username">Canvas Admin Username</label>
                     <input type="text" name="username" required>
                 </li>
                 <li class="input-container">
-                    <label for="password">Password</label>
+                    <label class="input-label" for="password">Password</label>
                     <input type="password" name="password" autocomplete="current-password" required>
                 </li>
                 <li class="input-container">
-                    <label for="domain">Domain</label>
+                    <label class="input-label" for="domain">Domain</label>
                     <input type="text" name="domain" list="domainList" required>
                     <datalist id="domainList">
                         <option value="byui">
@@ -31,24 +31,28 @@
                     </datalist>
                 </li>
                 <li class="input-container">
-                    <label for="purpose">Purpose</label>
+                    <label class="input-label" for="purpose">Purpose</label>
                     <input type="text" name="purpose">
                     <span class="hint" id="purpose_hint">Optional</span>
                 </li>
                 <li class="input-container">
-                    <label for="expires">Expires</label>
+                    <label class="input-label" for="expires">Expires</label>
                     <input type="datetime-local" name="expires">
                     <span class="hint" id="expires_hint">Optional: Defaults to this Friday</span>
                 </li>
                 <li id="submit-container">
                     <button type="submit" id="submit">FETCH TOKEN</button>
                 </li>
-                <li id="results">
+                <li id="loader-container">
                     <span id="loader"></span>
+                </li>
+                <li class="input-container" id="results">
+                    <label for="token" id="result_label" class="token_label">Token</label>
+                    <input type="text" name="token">
+                    <span class="hint" id="copy_token">Copy to clipboard</span>
                 </li>
             </ul>    
         </form>
-        <p id="token"></p>
         <script>
             const { ipcRenderer } = require('electron');
             const login = document.forms['login'];
@@ -57,6 +61,17 @@
             let friday = new Date();
             friday.setDate(friday.getDate() + (6 + (7 - friday.getDay())) % 7);
             login['expires'].value = friday.toISOString().slice(0, 16);
+
+            // func for showing results
+            function copyToken() {
+                let token = login['token'];
+                token.select(); // select text
+                token.setSelectionRange(0, 9999); // for mobile
+                document.execCommand('copy');
+                document.getElementById('copy_token').innerText = 'Copied!';
+                setTimeout(() => {}, 5000);
+                document.getElementById('copy_token').innerText = 'Copy to clipboard';
+            }
 
             // event listener for form submission
             login.addEventListener('submit', event => {
@@ -76,10 +91,29 @@
                 ipcRenderer.send('form-submission', input);
             });
             
-            // listener for form result
+            // listener for form results
             ipcRenderer.on('token-result', (event, token) => {
+                // setup Result container
+                document.getElementById('result_label').innerText = 'Token';
+                document.getElementById('copy_token').innerText = 'Copy to clipboard';
+                document.getElementById('copy_token').onclick = copyToken();
+                document.getElementById('result_label').classList.replace('error_label', 'token_label');
+                
+                // remove loading wheel and set token
                 document.getElementById('loader').classList.remove('loader');
-                document.getElementById('token').innerHTML = `TOKEN: ${token}`;
+                login['token'].value = token;
+                document.getElementById('submit').disabled = false;
+            });
+            ipcRenderer.on('token-failure', (event, reason) => {
+                // setup Result container
+                document.getElementById('result_label').innerText = 'Error';
+                document.getElementById('copy_token').innerText = ' ';
+                document.getElementById('copy_token').onclick = () => { return false };
+                document.getElementById('result_label').classList.replace('token_label', 'error_label');
+
+                // remove loading wheel and set error
+                document.getElementById('loader').classList.remove('loader');
+                login['token'].value = reason;
                 document.getElementById('submit').disabled = false;
             });
         </script>

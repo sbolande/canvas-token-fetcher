@@ -20,7 +20,8 @@ function createWindow() {
     ipcMain.on('form-submission', async (event, input) => {
         console.log(`Received form submission, fetching token for ${input.domain}.instructure.com`);
         var token = await runPuppeteer(input);
-        event.reply('token-result', token);
+        if (token.success) event.reply('token-result', token.result);
+        else if (!token.success) event.reply('token-failure', token.reason);
     });
     
     // open the devtools

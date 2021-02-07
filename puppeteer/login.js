@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
-const usernameInput = '#pseudonym_session_unique_id';
-const passwordInput = '#pseudonym_session_password';
-const button = 'button[type=submit]';
+const usernameInput = '#pseudonym_session_unique_id',
+      passwordInput = '#pseudonym_session_password',
+      button = 'button[type=submit]';
 var browser;
 
 async function login(env, username, password) {
@@ -19,6 +19,7 @@ async function login(env, username, password) {
     var pages = await browser.pages();
     // set the default amount of pages opened to one
     var page = pages[0];
+    page.setDefaultTimeout(5000);
 
     // go to the canvas login and input the login and password
     await page.goto(`https://${env}.instructure.com/login/canvas`, {

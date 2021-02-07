@@ -3,12 +3,26 @@ const browser = require('./login'),
 
 module.exports = async function runPuppeteer(input) {
     var page;
-    var token = 'TOKEN_NOT_SET';
+    var token = {
+        success: false,
+        result: 'TOKEN_NOT_SET',
+        reason: 'Token not yet set'
+    };
     try {
         page = await browser.login(input.domain, input.username, input.password);
+    } catch (e) {
+        console.error(e);
+        token.success = false;
+        token.reason = `Login failed. Please check your username and password are correct.`;
+        await browser.logout();
+        return token;
+    }
+    try {
         token = await getToken(page, input.domain, input.purpose, input.expires)
     } catch(e) {
         console.error(e);
+        token.success = false;
+        token.reason = e.message;
     } finally {
         await browser.logout();
         return token;
