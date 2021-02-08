@@ -49,7 +49,7 @@
                 <li class="input-container" id="results">
                     <label for="token" id="result_label" class="token_label">Token</label>
                     <input type="text" name="token">
-                    <span class="hint" id="copy_token">Copy to clipboard</span>
+                    <span class="hint" id="copy_token" onclick="copyToken()">Copy to clipboard</span>
                 </li>
             </ul>    
         </form>
@@ -67,15 +67,18 @@
                 let token = login['token'];
                 token.select(); // select text
                 token.setSelectionRange(0, 9999); // for mobile
-                document.execCommand('copy');
-                document.getElementById('copy_token').innerText = 'Copied!';
-                setTimeout(() => {}, 5000);
-                document.getElementById('copy_token').innerText = 'Copy to clipboard';
+                document.execCommand('copy'); // copy to clipboard
+                console.log('Copied token to clipboard.');
+                document.getElementById('copy_token').innerText = 'Copied!'; // change innerText
+                setTimeout(() => {
+                    document.getElementById('copy_token').innerText = 'Copy to clipboard'; // change back
+                }, 5000);
             }
 
             // event listener for form submission
             login.addEventListener('submit', event => {
                 console.log('Submitting form to IPC main...');
+                // prevent "form.action" from executing
                 event.preventDefault();
                 // turn off button
                 document.getElementById('submit').disabled = true;
@@ -88,6 +91,7 @@
                 input.domain = login['domain'].value;
                 input.purpose = login['purpose'].value === null ? "Fetch" : login['purpose'].value;
                 input.expires = login['expires'].value;
+                // send input to IPCMain in main.js
                 ipcRenderer.send('form-submission', input);
             });
             
@@ -95,9 +99,9 @@
             ipcRenderer.on('token-result', (event, token) => {
                 // setup Result container
                 document.getElementById('result_label').innerText = 'Token';
-                document.getElementById('copy_token').innerText = 'Copy to clipboard';
-                document.getElementById('copy_token').onclick = copyToken();
                 document.getElementById('result_label').classList.replace('error_label', 'token_label');
+                document.getElementById('copy_token').innerText = 'Copy to clipboard';
+                document.getElementById('copy_token').classList.replace('no_hint', 'hint');
                 
                 // remove loading wheel and set token
                 document.getElementById('loader').classList.remove('loader');
@@ -107,9 +111,9 @@
             ipcRenderer.on('token-failure', (event, reason) => {
                 // setup Result container
                 document.getElementById('result_label').innerText = 'Error';
-                document.getElementById('copy_token').innerText = ' ';
-                document.getElementById('copy_token').onclick = () => { return false };
                 document.getElementById('result_label').classList.replace('token_label', 'error_label');
+                document.getElementById('copy_token').innerText = ' ';
+                document.getElementById('copy_token').classList.replace('hint', 'no_hint');
 
                 // remove loading wheel and set error
                 document.getElementById('loader').classList.remove('loader');
