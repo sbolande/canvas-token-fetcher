@@ -1,0 +1,1 @@
+In this folder you can add your user secrets in a `./secrets.json` file. Please see [README](../README.md); 
