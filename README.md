@@ -4,10 +4,10 @@ Save a few clicks and fetch a new [Canvas API token](https://canvas.instructure.
 Powered by [Electron](https://www.electronjs.org/) and [Puppeteer](https://pptr.dev/)! 
 
 ## Table of Contents
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Default values](#Default%20Values) - secrets.json
-- [Running in developer mode](#Dev%20Mode)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Default values](#default-values) - secrets.json
+- [Running in developer mode](#dev-mode)
 ----------
 ## Installation
 **Requirements:** Git, Node, and NPM.
@@ -41,5 +41,5 @@ Wish Password Manager worked here? Sorry fam, functionality not yet implemented 
 Wish you could watch Puppeteer work its magic? Sorry fam, functionality not yet implemented :disappointed:
 
 ----------
-#### [Back to Top](#Table%20of%20Contents)
+#### [Back to Top](#table-of-contents)
 #### [ISC Opensource License](https://opensource.org/licenses/ISC)
