@@ -17,6 +17,7 @@
     "electron": "^11.2.2"
   },
   "dependencies": {
+    "moment": "^2.29.1",
     "puppeteer": "^7.0.1"
   }
 }
