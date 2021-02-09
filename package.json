@@ -17,7 +17,8 @@
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/electron . --dev-mode"
+    "dev": "./node_modules/.bin/electron . --dev-mode",
+    "postinstall": "node makeShortcut.js"
   },
   "repository": {
     "type": "git",
