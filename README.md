@@ -19,10 +19,11 @@ cd canvas-token-fetcher
 # basic install, may take a minute to download Chromium for Puppeteer
 npm install
 ```
+A desktop "shortcut" in the form of a `.bat` file will be created automatically on install. You can delete this if you'd like, it's just a nicety. 
 
 ----------
 ## Usage
-To run, use "`npm start`". This will run Electron and start the application.
+To run, use "`npm start`" (this is what the desktop shortcut does). This will run Electron and start the application.
 The app takes the following inputs:
 1. **Username**: Your Canvas admin username or CCT username.
 2. **Password**
