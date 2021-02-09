@@ -2,18 +2,27 @@
   "name": "canvas-token-fetcher",
   "version": "1.0.0",
   "description": "Fetch a new API token from Canvas' admin login.",
+  "keywords": [
+    "instructure",
+    "canvas",
+    "puppeteer",
+    "electron",
+    "BYU-Idaho",
+    "Hackathon 2021"
+  ],
+  "homepage": "https://github.com/sbolande/canvas-token-fetcher#readme",
+  "license": "MIT",
+  "author": "Seth Bolander <sbolande97@gmail.com> (https://github.com/sbolande)",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/.bin/electron . --dev-mode"
   },
-  "author": "Seth Bolander",
   "repository": {
     "type": "git",
     "url": "https://github.com/sbolande/canvas-token-fetcher.git"
   },
-  "license": "ISC",
   "devDependencies": {
     "electron": "^11.2.2"
   },

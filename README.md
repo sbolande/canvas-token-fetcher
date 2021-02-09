@@ -55,4 +55,3 @@ Use "`npm run dev`" to run in Dev Mode. This will open DevTools in Electron and 
 
 ----------
 #### [Back to Top](#table-of-contents)
-#### [ISC Opensource License](https://opensource.org/licenses/ISC)
