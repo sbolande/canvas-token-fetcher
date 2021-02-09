@@ -7,8 +7,7 @@ var browser;
 async function login(env, username, password) {
     // set the view window for puppeteer
     browser = await puppeteer.launch({
-        headless: true,
-        // headless: false,
+        headless: !(process.argv[2] === '--dev-mode'), // run !headless if in dev-mode
         defaultViewport: {
             width: 1920,
             height: 1080

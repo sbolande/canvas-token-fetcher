@@ -12,6 +12,13 @@ function createWindow() {
             nodeIntegration: true
         }
     });
+    // check for dev-mode
+    console.log(process.argv[2]);
+    if (process.argv[2] === '--dev-mode') {
+        win.setSize(1200, 730);
+        win.webContents.openDevTools();
+    }
+
     // after creation, open index.html
     win.loadFile('index.html');
     

@@ -2,20 +2,37 @@
 const { ipcRenderer } = require('electron');
 const moment = require('moment');
 const fs = require('fs');
+
+const secretsPath = './secrets/secrets.json';
 const login = document.forms['login'];
 
 // default expiration to next friday
 login['expires'].value = moment().day(5).format("YYYY-MM-DDTHH:mm");
 
-// TODO: set defaults from user secrets if found
+// set defaults from user secrets if found
+if (fs.existsSync(secretsPath)) {
+    console.log('User secrets found!');
+    var secrets = require(secretsPath);
+    // foreach secrets property, set value; if undefined set as empty string
+    login['username'].value = secrets.username || '';
+    login['password'].value = secrets.password || '';
+    login['domain'].value = secrets.domain || '';
+    login['purpose'].value = secrets.purpose || '';
+}
 
+// set focus to first empty field found
+if (login['username'].value === '') login['username'].focus();
+else if (login['password'].value === '') login['password'].focus();
+else if (login['domain'].value === '') login['domain'].focus();
+else if (login['purpose'].value === '') login['purpose'].focus();
+else login['submit'].focus();
 
 /******************** EVENT LISTENERS ********************/
 // event listener for form submission
 login.addEventListener('submit', event => {
     console.log('Submitting form to IPC main...');
     event.preventDefault(); // prevent "form.action" from executing
-    document.getElementById('submit').disabled = true; // turn off button
+    login['submit'].disabled = true; // turn off button
     document.getElementById('loader').classList.add('loader'); // create loader
     document.getElementById('result-container').classList.add('hide'); // hide result-container, just in case
     document.getElementById('error-container').classList.add('hide'); // hide errors, just in case
@@ -43,7 +60,7 @@ ipcRenderer.on('token-result', (event, token) => {
 ipcRenderer.on('token-failure', (event, reason) => {
     document.getElementById('loader').classList.remove('loader'); // remove loading animation
     login['error'].value = reason; // set error reason
-    document.getElementById('submit').disabled = false; // re-enable button
+    login['submit'].disabled = false; // re-enable button
     document.getElementById('error-container').classList.remove('hide'); // unhide error-container
     
     // hide error-container after 10 seconds
@@ -64,4 +81,10 @@ function copyToken() {
     setTimeout(() => {
         document.getElementById('copy_token').innerText = 'Copy to clipboard'; // change back
     }, 5000);
+}
+
+// onclick for toggling "show password" & "hide password"
+function togglePassword() {
+    let password = login['password'];
+    password.type = password.type === 'password' ? 'text' : 'password';
 }

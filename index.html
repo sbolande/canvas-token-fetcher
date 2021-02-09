@@ -19,7 +19,8 @@
                 </li>
                 <li class="input-container">
                     <label class="input-label" for="password">Password</label>
-                    <input type="password" name="password" autocomplete="current-password" required>
+                    <input type="password" name="password" required>
+                    <span class="hint hint_btn" id="password_hint" onclick="togglePassword()">Show password</span>
                 </li>
                 <li class="input-container">
                     <label class="input-label" for="domain">Domain</label>
@@ -46,7 +47,7 @@
                 <li class="input-container hide" id="result-container">
                     <label for="token" id="result_label" class="token_label">Token</label>
                     <input type="text" name="token" class="token_text">
-                    <span class="hint" id="copy_token" onclick="copyToken()">Copy to clipboard</span>
+                    <span class="hint hint_btn" id="copy_token" onclick="copyToken()">Copy to clipboard</span>
                 </li>
                 <li class="input-container hide" id="error-container">
                     <label for="token" id="result_label" class="error_label">Error</label>

@@ -73,8 +73,8 @@ label {
     font-size: 11px;
     border-radius: 3px;
 }
-#copy_token:hover { background: #d6d6d6; }
-#copy_token:active { background: #a6a6a6; }
+.hint_btn:hover { background: #d6d6d6; }
+.hint_btn:active { background: #a6a6a6; }
 
 /* Submit button */
 #submit {
