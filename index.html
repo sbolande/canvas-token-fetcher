@@ -1,61 +1,73 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Canvas Token Fetcher</title>
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
-        <link rel="stylesheet" href="./main.css">
-    </head>
-    <body>
-        <form id="login" name="login">
-            <div>
-                <h1><span id="loader">Canvas Token Fetcher</span></h1>
-            </div>
-            <br>
-            <ul>
-                <li class="input-container">
-                    <label class="input-label" for="username">Canvas Admin Username</label>
-                    <input type="text" name="username" required>
-                </li>
-                <li class="input-container">
-                    <label class="input-label" for="password">Password</label>
-                    <input type="password" name="password" required>
-                    <span class="hint hint_btn" id="password_hint" onclick="togglePassword()">Show password</span>
-                </li>
-                <li class="input-container">
-                    <label class="input-label" for="domain">Domain</label>
-                    <input type="text" name="domain" list="domainList" required>
-                    <datalist id="domainList">
-                        <option value="byui">
-                        <option value="byuird">
-                        <option value="byui.beta">
-                        <option value="byuird.beta">
-                    </datalist>
-                </li>
-                <li class="input-container">
-                    <label class="input-label" for="purpose">Purpose</label>
-                    <input type="text" name="purpose">
-                    <span class="hint" id="purpose_hint">Optional</span>
-                </li>
-                <li class="input-container">
-                    <label class="input-label" for="expires">Expires</label>
-                    <input type="datetime-local" name="expires">
-                    <span class="hint" id="expires_hint">Defaults to this Friday</span>
-                </li>
-                <li id="submit-container">
-                    <button type="submit" id="submit">FETCH TOKEN</button>
-                </li>
-                <li class="input-container hide" id="result-container">
-                    <label for="token" id="result_label" class="token_label">Token</label>
-                    <input type="text" name="token" class="token_text">
-                    <span class="hint hint_btn" id="copy_token" onclick="copyToken()">Copy to clipboard</span>
-                </li>
-                <li class="input-container hide" id="error-container">
-                    <label for="token" id="result_label" class="error_label">Error</label>
-                    <input type="text" name="error" class="error_text">
-                </li>
-            </ul>    
-        </form>
-        <script src="./renderer.js"></script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas Token Fetcher</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <form id="login" name="login">
+      <div>
+        <h1><span id="loader">Canvas Token Fetcher</span></h1>
+      </div>
+      <br />
+      <ul>
+        <li class="input-container">
+          <label class="input-label" for="username"
+            >Canvas Admin Username</label
+          >
+          <input type="text" name="username" required />
+        </li>
+        <li class="input-container">
+          <label class="input-label" for="password">Password</label>
+          <input type="password" name="password" required />
+          <span
+            class="hint hint_btn"
+            id="password_hint"
+            onclick="togglePassword()"
+            >Show password</span
+          >
+        </li>
+        <li class="input-container">
+          <label class="input-label" for="domain">Domain</label>
+          <input type="text" name="domain" list="domainList" required />
+          <datalist id="domainList">
+            <option value="byui">byui</option>
+            <option value="byuird">byuird</option>
+            <option value="byui.beta">byui.beta</option>
+            <option value="byuird.beta">byuird.beta</option>
+          </datalist>
+        </li>
+        <li class="input-container">
+          <label class="input-label" for="purpose">Purpose</label>
+          <input type="text" name="purpose" />
+          <span class="hint" id="purpose_hint">Optional</span>
+        </li>
+        <li class="input-container">
+          <label class="input-label" for="expires">Expires</label>
+          <input type="datetime-local" name="expires" />
+          <span class="hint" id="expires_hint">Defaults to this Friday</span>
+        </li>
+        <li id="submit-container">
+          <button type="submit" id="submit">FETCH TOKEN</button>
+        </li>
+        <li class="input-container hide" id="result-container">
+          <label for="token" id="result_label" class="token_label">Token</label>
+          <input type="text" name="token" class="token_text" />
+          <span class="hint hint_btn" id="copy_token" onclick="copyToken()"
+            >Copy to clipboard</span
+          >
+        </li>
+        <li class="input-container hide" id="error-container">
+          <label for="error" id="error_label" class="error_label">Error</label>
+          <input type="text" name="error" class="error_text" />
+        </li>
+      </ul>
+    </form>
+    <script src="./renderer.js"></script>
+  </body>
 </html>
